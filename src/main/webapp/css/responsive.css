@@ -1,0 +1,69 @@
+/* ==========================================================================
+   RESPONSIVE DESIGN FOR EDITORIAL LEDGER THEME
+   Mobile & Tablet Adaptability
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .dashboard-layout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .masthead-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .brand-section {
+        justify-content: space-between;
+    }
+
+    .main-nav {
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nav-link {
+        white-space: nowrap;
+        padding: 0.45rem 0.65rem;
+        font-size: 0.82rem;
+    }
+
+    .editorial-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .header-title {
+        font-size: 1.75rem;
+    }
+
+    .filter-bar-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-group {
+        min-width: 100%;
+    }
+
+    .ledger-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+}

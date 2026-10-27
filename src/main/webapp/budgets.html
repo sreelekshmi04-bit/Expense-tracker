@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Envelopes — Expense Tracker System</title>
+    <link rel="stylesheet" href="css/ledger-theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body id="budgets-view">
+
+    <!-- Top Masthead -->
+    <header class="masthead">
+        <div class="masthead-inner">
+            <a href="dashboard.html" class="brand-section">
+                <div class="brand-seal">₹</div>
+                <div class="brand-text">
+                    <h1>Expense Tracker</h1>
+                    <span>Financial Journal &amp; Ledger</span>
+                </div>
+            </a>
+
+            <nav class="main-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Journal Dashboard
+                </a>
+                <a href="transactions.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Ledger Entries
+                </a>
+                <a href="budgets.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    Budget Envelopes
+                </a>
+                <a href="reports.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Audit &amp; Reports
+                </a>
+            </nav>
+
+            <div class="user-actions">
+                <button class="btn-alert-bell" id="btn-header-alert-bell" title="Spending Alerts">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="alert-badge-count" id="header-alert-badge" style="display: none;">0</span>
+                </button>
+
+                <div class="user-profile-badge">
+                    <div class="user-avatar-initials">U</div>
+                    <span class="user-name-display">Loading...</span>
+                </div>
+
+                <button class="btn-logout btn-logout-action" title="Sign Out">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-wrapper">
+        <!-- Editorial Header -->
+        <div class="editorial-header">
+            <div>
+                <div class="header-lead">Spending Limits &amp; Envelopes</div>
+                <h2 class="header-title">Monthly Category Budgets</h2>
+                <p class="header-subtitle">Enforce category spending guardrails with automated alerts</p>
+            </div>
+            <div class="header-actions">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <label for="budget-month-picker" style="font-size: 0.8rem; font-weight: 700; color: var(--ink-muted); text-transform: uppercase;">Month:</label>
+                    <input type="month" id="budget-month-picker" class="form-control" style="width: auto;">
+                </div>
+                <button class="btn btn-primary" id="btn-open-set-budget-modal">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Set Category Budget
+                </button>
+            </div>
+        </div>
+
+        <!-- 2-Card Summary Strip -->
+        <div class="ledger-summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="metric-folio-card">
+                <div class="metric-label-row">
+                    <span class="metric-label">Total Allocated Budget</span>
+                    <span id="budget-friendly-month" style="font-size: 0.75rem; color: var(--forest-700); font-weight: 700;"></span>
+                </div>
+                <div class="metric-value tabular-numbers" id="summary-total-budgeted">₹0.00</div>
+                <div class="metric-subtext">Sum of active category limits for selected month</div>
+            </div>
+
+            <div class="metric-folio-card">
+                <div class="metric-label-row">
+                    <span class="metric-label">Actual Spent in Budgeted Envelopes</span>
+                </div>
+                <div class="metric-value expense-color tabular-numbers" id="summary-total-spent-budgeted">₹0.00</div>
+                <div class="metric-subtext">Cumulative spending across budgeted categories</div>
+            </div>
+        </div>
+
+        <div class="dashboard-layout-grid">
+            <!-- Left: Envelopes List -->
+            <div>
+                <div id="budget-envelopes-grid">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <div id="budget-empty-state" class="empty-state content-card" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    </svg>
+                    <h4>No budget envelopes set for this month</h4>
+                    <p>Allocate a spending ceiling for Food, Transport, Shopping, or Bills to activate automated spending alerts.</p>
+                    <button class="btn btn-primary btn-sm" onclick="openBudgetModal()">Set Envelope Budget</button>
+                </div>
+            </div>
+
+            <!-- Right: Pedagogical Card Explaining the Smart Spending Alert -->
+            <aside>
+                <div class="content-card" style="background: linear-gradient(180deg, #F9F7F2 0%, #F1ECE2 100%);">
+                    <div class="card-header-bar" style="background: transparent;">
+                        <div class="card-title-group">
+                            <span class="envelope-status-badge status-warning" style="display: inline-block; margin-bottom: 0.35rem;">Star Feature</span>
+                            <h3>How Smart Alerts Work</h3>
+                        </div>
+                    </div>
+                    <div class="card-body" style="font-size: 0.88rem; line-height: 1.6;">
+                        <p style="color: var(--ink-muted); margin-bottom: 1rem;">
+                            Unlike static spreadsheets, the app quietly watches category spending in real time.
+                        </p>
+                        
+                        <div style="display: flex; gap: 0.75rem; margin-bottom: 0.85rem;">
+                            <div style="font-weight: 700; color: var(--forest-800); font-family: var(--font-serif); font-size: 1.2rem;">1.</div>
+                            <div><strong>You set a limit:</strong><br>e.g. Food = ₹3,000 this month.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem; margin-bottom: 0.85rem;">
+                            <div style="font-weight: 700; color: var(--forest-800); font-family: var(--font-serif); font-size: 1.2rem;">2.</div>
+                            <div><strong>You log expenses:</strong><br>e.g. Food expenses reach ₹3,400.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem; margin-bottom: 0.85rem;">
+                            <div style="font-weight: 700; color: var(--forest-800); font-family: var(--font-serif); font-size: 1.2rem;">3.</div>
+                            <div><strong>App does the math:</strong><br>Expenses − Budget = ₹400 overspend.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem;">
+                            <div style="font-weight: 700; color: var(--terracotta-700); font-family: var(--font-serif); font-size: 1.2rem;">4.</div>
+                            <div><strong>Alert triggers immediately:</strong><br>A warning is raised at 80% and overspend alert triggers at &gt;100%.</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Modal: Set / Edit Budget -->
+    <div class="modal-backdrop" id="modal-set-budget">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Set Monthly Category Budget</h3>
+                <button type="button" class="action-btn btn-close-budget-modal">✕</button>
+            </div>
+            <form id="set-budget-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="budget-category-select">Expense Category</label>
+                        <select id="budget-category-select" class="form-control" required>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Education">Education</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget-limit-input">Monthly Spending Limit (₹)</label>
+                        <input type="number" step="0.01" min="1" id="budget-limit-input" class="form-control" placeholder="e.g. 3000.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget-target-month">Applicable Month</label>
+                        <input type="month" id="budget-target-month" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close-budget-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Envelope</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Smart Spending Alerts -->
+    <div class="modal-backdrop" id="modal-alerts-ledger">
+        <div class="modal-dialog" style="max-width: 620px;">
+            <div class="modal-header">
+                <h3>Smart Spending Alerts</h3>
+                <button type="button" class="action-btn btn-close-alert-modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--ink-muted);">Automatic triggers on 80% threshold &amp; overspending</span>
+                    <button type="button" class="btn btn-sm btn-text" id="btn-mark-all-alerts-read">Mark All as Read</button>
+                </div>
+                <div id="alerts-modal-list" style="max-height: 380px; overflow-y: auto;"></div>
+                <div id="alerts-modal-empty" class="empty-state" style="display: none; padding: 2rem 1rem;">
+                    <h4>All Budgets in Safe Standing</h4>
+                    <p>No category has reached 80% of its budget limit.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-close-alert-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="ledger-footer">
+        <div class="footer-inner">
+            <div class="footer-creds">
+                <strong>Expense Tracker System</strong> — Dept. of CSE, LBSITW
+            </div>
+            <div class="footer-nav">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="transactions.html">Ledger</a>
+                <a href="reports.html">Reports</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/budgets.js"></script>
+    <script src="js/alerts.js"></script>
+</body>
+</html>

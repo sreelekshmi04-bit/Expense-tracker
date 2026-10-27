@@ -1,0 +1,577 @@
+/* ==========================================================================
+   COMPONENTS: LEDGER FOLIOS, METRIC CARDS, TABLES, MODALS & PROGRESS BARS
+   ========================================================================== */
+
+/* ==========================================================================
+   1. LEDGER METRIC FOLIO (High-level Financial Balance)
+   ========================================================================== */
+
+.ledger-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.25rem;
+}
+
+.metric-folio-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-ledger);
+    border-radius: var(--radius-sm);
+    padding: 1.35rem 1.5rem;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    transition: var(--transition);
+}
+
+.metric-folio-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-card);
+}
+
+.metric-folio-card.featured-balance {
+    background: linear-gradient(145deg, #FFFFFF 0%, #F5F1EB 100%);
+    border: 1.5px solid var(--forest-700);
+}
+
+.metric-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.65rem;
+}
+
+.metric-label {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--ink-muted);
+}
+
+.metric-icon-small {
+    color: var(--ink-faint);
+}
+
+.metric-value {
+    font-family: var(--font-serif);
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: var(--ink-solid);
+    line-height: 1.1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.metric-value.income-color {
+    color: var(--forest-700);
+}
+
+.metric-value.expense-color {
+    color: var(--terracotta-700);
+}
+
+/* Classical accountant double underline for the balanced net total */
+.featured-balance .metric-value {
+    color: var(--forest-900);
+    position: relative;
+    display: inline-flex;
+    padding-bottom: 4px;
+}
+
+.featured-balance .metric-value::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-top: 1px solid var(--forest-800);
+    border-bottom: 1px solid var(--forest-800);
+}
+
+.metric-subtext {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    margin-top: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* ==========================================================================
+   2. MAIN CONTENT GRID (Ledger Folio vs Budget Envelopes)
+   ========================================================================== */
+
+.dashboard-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 1.75rem;
+    align-items: start;
+}
+
+.content-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-ledger);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+.card-header-bar {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-ledger);
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-title-group h3 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--forest-900);
+}
+
+.card-title-group p {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+}
+
+.card-body {
+    padding: 1.25rem 1.5rem;
+}
+
+/* ==========================================================================
+   3. ACCOUNTING LEDGER TABLE (Credit / Debit Columns)
+   ========================================================================== */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
+}
+
+.ledger-table th {
+    background-color: var(--bg-subtle);
+    color: var(--ink-muted);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.75rem 1rem;
+    border-bottom: 1.5px solid var(--border-strong);
+    white-space: nowrap;
+}
+
+.ledger-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-ledger);
+    color: var(--ink-primary);
+    vertical-align: middle;
+}
+
+.ledger-table tr:hover td {
+    background-color: rgba(243, 239, 231, 0.5);
+}
+
+.ledger-date-cell {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    white-space: nowrap;
+}
+
+.category-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--bg-subtle);
+    color: var(--ink-primary);
+    border: 1px solid var(--border-ledger);
+    white-space: nowrap;
+}
+
+.category-tag.cat-income {
+    background: var(--forest-50);
+    color: var(--forest-800);
+    border-color: var(--forest-100);
+}
+
+.category-tag.cat-expense {
+    background: var(--terracotta-50);
+    color: var(--terracotta-700);
+    border-color: var(--terracotta-100);
+}
+
+.ledger-desc {
+    font-weight: 500;
+    color: var(--ink-solid);
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.amount-income {
+    color: var(--forest-700);
+    font-weight: 600;
+}
+
+.amount-expense {
+    color: var(--terracotta-700);
+    font-weight: 600;
+}
+
+.row-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--ink-faint);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.action-btn:hover {
+    color: var(--forest-800);
+    background: var(--bg-subtle);
+}
+
+.action-btn.delete-btn:hover {
+    color: var(--terracotta-700);
+}
+
+/* ==========================================================================
+   4. BUDGET ENVELOPES & PROGRESS GAUGES
+   ========================================================================== */
+
+.budget-envelopes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.budget-envelope-item {
+    padding: 1rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-ledger);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.budget-envelope-item:hover {
+    border-color: var(--border-strong);
+    background: #FFF;
+}
+
+.envelope-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.envelope-category {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--ink-solid);
+}
+
+.envelope-status-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.status-safe {
+    background: var(--forest-100);
+    color: var(--forest-800);
+}
+
+.status-warning {
+    background: var(--ochre-100);
+    color: var(--ochre-700);
+}
+
+.status-exceeded {
+    background: var(--terracotta-100);
+    color: var(--terracotta-700);
+}
+
+.progress-track {
+    width: 100%;
+    height: 7px;
+    background: var(--border-ledger);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    margin: 0.65rem 0;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+.progress-fill.fill-safe {
+    background-color: var(--forest-600);
+}
+
+.progress-fill.fill-warning {
+    background-color: var(--ochre-600);
+}
+
+.progress-fill.fill-exceeded {
+    background-color: var(--terracotta-600);
+}
+
+.envelope-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+}
+
+/* ==========================================================================
+   5. FILTER BARS & SEARCH
+   ========================================================================== */
+
+.filter-bar-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-ledger);
+    border-radius: var(--radius-sm);
+    padding: 1.15rem 1.5rem;
+    margin-bottom: 1.75rem;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+    min-width: 140px;
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.88rem;
+    font-family: var(--font-sans);
+    color: var(--ink-solid);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--forest-700);
+    box-shadow: 0 0 0 3px rgba(30, 70, 49, 0.12);
+}
+
+/* ==========================================================================
+   6. MODAL DIALOG (Accounting Entry Voucher)
+   ========================================================================== */
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(14, 35, 24, 0.45);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-dialog {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-modal);
+    width: 100%;
+    max-width: 520px;
+    overflow: hidden;
+    transform: translateY(15px);
+    transition: transform 0.2s ease;
+}
+
+.modal-backdrop.open .modal-dialog {
+    transform: translateY(0);
+}
+
+.modal-header {
+    background: var(--bg-subtle);
+    padding: 1.15rem 1.5rem;
+    border-bottom: 1px solid var(--border-ledger);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h3 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--forest-900);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    background: var(--bg-subtle);
+    border-top: 1px solid var(--border-ledger);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+/* Type Switcher: Credit vs Debit */
+.type-toggle-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    background: var(--bg-subtle);
+    padding: 0.35rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-ledger);
+}
+
+.type-toggle-btn {
+    border: none;
+    background: transparent;
+    padding: 0.55rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.type-toggle-btn.active.income {
+    background: var(--forest-700);
+    color: #fff;
+}
+
+.type-toggle-btn.active.expense {
+    background: var(--terracotta-600);
+    color: #fff;
+}
+
+/* ==========================================================================
+   7. TOAST NOTIFICATIONS & EMPTY STATES
+   ========================================================================== */
+
+#toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.toast {
+    background: var(--forest-900);
+    color: var(--bg-parchment);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.86rem;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    animation: toastSlideIn 0.3s ease;
+    border-left: 4px solid var(--forest-600);
+}
+
+.toast.toast-error {
+    border-left-color: var(--terracotta-500);
+}
+
+@keyframes toastSlideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: var(--ink-muted);
+}
+
+.empty-state svg {
+    width: 44px;
+    height: 44px;
+    color: var(--ink-faint);
+    margin-bottom: 0.75rem;
+}
+
+.empty-state h4 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--forest-900);
+    margin-bottom: 0.35rem;
+}
+
+.empty-state p {
+    font-size: 0.85rem;
+    max-width: 320px;
+    margin: 0 auto 1.25rem;
+}

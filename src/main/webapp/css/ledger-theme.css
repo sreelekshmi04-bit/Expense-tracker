@@ -1,0 +1,529 @@
+/* ==========================================================================
+   EXPENSE TRACKER SYSTEM — FINANCIAL JOURNAL & EDITORIAL LEDGER THEME
+   Palette: Warm Ivory/Paper, Deep Forest Green, Terracotta & Rich Charcoal
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Paper & Backgrounds */
+    --bg-parchment: #F9F7F2;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #F3EFE7;
+    --bg-paper-tint: #ECE5D8;
+    
+    /* Primary Deep Forest Green */
+    --forest-900: #0E2318;
+    --forest-800: #173827;
+    --forest-700: #1E4631;
+    --forest-600: #275C41;
+    --forest-100: #E6EFEA;
+    --forest-50:  #F0F6F2;
+
+    /* Terracotta & Burnt Orange (Alerts & Debits) */
+    --terracotta-800: #93381B;
+    --terracotta-700: #B24622;
+    --terracotta-600: #C85A32;
+    --terracotta-500: #D86F48;
+    --terracotta-100: #F9EBE6;
+    --terracotta-50:  #FCF5F2;
+
+    /* Antique Ochre (Warnings / Badges) */
+    --ochre-700: #A27216;
+    --ochre-600: #C28B1C;
+    --ochre-100: #FAF2E3;
+
+    /* Charcoal Inks */
+    --ink-solid: #191E1A;
+    --ink-primary: #2B322D;
+    --ink-muted: #5E6962;
+    --ink-faint: #8F9B93;
+    --ink-light: #B4BFB7;
+
+    /* Ledger Borders & Accounting Rules */
+    --border-ledger: #E2DBD0;
+    --border-strong: #CDC4B5;
+    --border-focus: #1E4631;
+
+    /* Typography */
+    --font-serif: 'Newsreader', 'Playfair Display', 'Charter', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Elevation & Shadows */
+    --shadow-soft: 0 4px 20px -2px rgba(27, 36, 30, 0.05), 0 2px 6px -1px rgba(27, 36, 30, 0.03);
+    --shadow-card: 0 8px 30px -4px rgba(27, 36, 30, 0.07), 0 2px 8px -2px rgba(27, 36, 30, 0.04);
+    --shadow-modal: 0 20px 50px -10px rgba(14, 35, 24, 0.25);
+
+    /* Layout metrics */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-parchment);
+    color: var(--ink-primary);
+    line-height: 1.55;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Subtle paper rule pattern */
+    background-image: 
+        linear-gradient(to right, rgba(226, 219, 208, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 219, 208, 0.35) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Tabular figures for all financial amounts */
+.tabular-numbers, .amount, .metric-value, td.num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   EDITORIAL MASTHEAD & TOP NAVIGATION
+   ========================================================================== */
+
+.masthead {
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--border-ledger);
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.masthead-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.brand-seal {
+    width: 38px;
+    height: 38px;
+    background: var(--forest-800);
+    color: var(--bg-parchment);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    border: 1px solid var(--forest-900);
+    box-shadow: 0 2px 6px rgba(14, 35, 24, 0.2);
+}
+
+.brand-text h1 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--forest-900);
+    line-height: 1.1;
+}
+
+.brand-text span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    font-weight: 600;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+    color: var(--forest-800);
+    background-color: var(--forest-50);
+}
+
+.nav-link.active {
+    color: var(--forest-900);
+    font-weight: 600;
+    background-color: var(--forest-50);
+    border-bottom: 2px solid var(--forest-700);
+}
+
+.nav-link svg {
+    width: 17px;
+    height: 17px;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.btn-alert-bell {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--border-ledger);
+    border-radius: var(--radius-md);
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--ink-muted);
+    transition: var(--transition);
+}
+
+.btn-alert-bell:hover {
+    color: var(--forest-800);
+    background: var(--bg-subtle);
+    border-color: var(--border-strong);
+}
+
+.alert-badge-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--terracotta-600);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid var(--bg-surface);
+}
+
+.user-profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-ledger);
+    border-radius: 30px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--ink-primary);
+}
+
+.user-avatar-initials {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--forest-700);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.btn-logout {
+    background: transparent;
+    border: none;
+    color: var(--ink-faint);
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    color: var(--terracotta-700);
+}
+
+/* ==========================================================================
+   MAIN CONTAINER & EDITORIAL PAGE HEADER
+   ========================================================================== */
+
+.page-wrapper {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    flex: 1;
+    width: 100%;
+}
+
+.editorial-header {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-ledger);
+    position: relative;
+}
+
+.editorial-header::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--border-ledger);
+}
+
+.header-lead {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--forest-700);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.header-title {
+    font-family: var(--font-serif);
+    font-size: 2.15rem;
+    font-weight: 600;
+    color: var(--forest-900);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+}
+
+.header-subtitle {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    margin-top: 0.35rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ==========================================================================
+   BUTTONS & CONTROLS (Editorial Aesthetic)
+   ========================================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    text-decoration: none;
+    font-family: var(--font-sans);
+}
+
+.btn-primary {
+    background-color: var(--forest-800);
+    color: var(--bg-parchment);
+    border-color: var(--forest-900);
+    box-shadow: 0 2px 4px rgba(14, 35, 24, 0.15);
+}
+
+.btn-primary:hover {
+    background-color: var(--forest-700);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(14, 35, 24, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background-color: var(--bg-surface);
+    color: var(--ink-primary);
+    border-color: var(--border-strong);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-subtle);
+    border-color: var(--ink-faint);
+}
+
+.btn-terracotta {
+    background-color: var(--terracotta-600);
+    color: #fff;
+    border-color: var(--terracotta-700);
+}
+
+.btn-terracotta:hover {
+    background-color: var(--terracotta-700);
+}
+
+.btn-text {
+    background: transparent;
+    color: var(--forest-700);
+    padding: 0.4rem 0.6rem;
+}
+
+.btn-text:hover {
+    background-color: var(--forest-50);
+}
+
+.btn-sm {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   STAR FEATURE: SMART SPENDING ALERT BANNER
+   ========================================================================== */
+
+.alert-ledger-banner {
+    background: var(--terracotta-50);
+    border: 1px solid rgba(200, 90, 50, 0.35);
+    border-left: 4px solid var(--terracotta-600);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.alert-ledger-banner.warning-level {
+    background: var(--ochre-100);
+    border-color: rgba(194, 139, 28, 0.35);
+    border-left-color: var(--ochre-600);
+}
+
+.alert-banner-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+}
+
+.alert-banner-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--terracotta-700);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.warning-level .alert-banner-icon {
+    color: var(--ochre-700);
+}
+
+.alert-banner-text h4 {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink-solid);
+    margin-bottom: 0.2rem;
+}
+
+.alert-banner-text p {
+    font-size: 0.88rem;
+    color: var(--ink-primary);
+    line-height: 1.45;
+}
+
+.alert-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   FOOTER (Academic / College Credit)
+   ========================================================================== */
+
+.ledger-footer {
+    border-top: 1px solid var(--border-ledger);
+    background-color: var(--bg-surface);
+    padding: 2rem 1.5rem;
+    margin-top: auto;
+}
+
+.footer-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+}
+
+.footer-creds strong {
+    color: var(--forest-900);
+    font-weight: 600;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.footer-nav a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-nav a:hover {
+    color: var(--forest-800);
+    text-decoration: underline;
+}

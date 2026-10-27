@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit &amp; Reports — Expense Tracker System</title>
+    <link rel="stylesheet" href="css/ledger-theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body id="reports-view">
+
+    <!-- Header Masthead -->
+    <header class="masthead">
+        <div class="masthead-inner">
+            <a href="dashboard.html" class="brand-section">
+                <div class="brand-seal">₹</div>
+                <div class="brand-text">
+                    <h1>Expense Tracker</h1>
+                    <span>Financial Journal &amp; Ledger</span>
+                </div>
+            </a>
+
+            <nav class="main-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Journal Dashboard
+                </a>
+                <a href="transactions.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Ledger Entries
+                </a>
+                <a href="budgets.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    Budget Envelopes
+                </a>
+                <a href="reports.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Audit &amp; Reports
+                </a>
+            </nav>
+
+            <div class="user-actions">
+                <button class="btn-alert-bell" id="btn-header-alert-bell" title="Spending Alerts">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="alert-badge-count" id="header-alert-badge" style="display: none;">0</span>
+                </button>
+
+                <div class="user-profile-badge">
+                    <div class="user-avatar-initials">U</div>
+                    <span class="user-name-display">Loading...</span>
+                </div>
+
+                <button class="btn-logout btn-logout-action" title="Sign Out">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-wrapper">
+        <!-- Editorial Header -->
+        <div class="editorial-header">
+            <div>
+                <div class="header-lead">Financial Analysis &amp; CSV Export</div>
+                <h2 class="header-title">Audit Registers &amp; Reports</h2>
+                <p class="header-subtitle">Filter transactions across date intervals, categories, and download CSV ledger spreadsheets</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="btn-export-csv">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Export Ledger to CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar-card">
+            <div class="form-group">
+                <label for="report-filter-month">Calendar Month</label>
+                <select id="report-filter-month" class="form-control">
+                    <option value="ALL">All Time</option>
+                    <option value="2026-10" selected>October 2026</option>
+                    <option value="2026-09">September 2026</option>
+                    <option value="2026-08">August 2026</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="report-filter-type">Type</label>
+                <select id="report-filter-type" class="form-control">
+                    <option value="ALL">All Transactions</option>
+                    <option value="INCOME">Income Only</option>
+                    <option value="EXPENSE">Expense Only</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="report-filter-category">Category</label>
+                <select id="report-filter-category" class="form-control">
+                    <option value="ALL">All Categories</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Bills">Bills</option>
+                    <option value="Education">Education</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Scholarship">Scholarship</option>
+                    <option value="Freelance">Freelance</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="report-filter-start">Custom Start Date</label>
+                <input type="date" id="report-filter-start" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="report-filter-end">Custom End Date</label>
+                <input type="date" id="report-filter-end" class="form-control">
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; align-items: flex-end;">
+                <button type="button" class="btn btn-secondary" id="btn-apply-report-filters">Filter</button>
+            </div>
+        </div>
+
+        <!-- Summary Strip -->
+        <div class="ledger-summary-grid">
+            <div class="metric-folio-card">
+                <div class="metric-label-row">
+                    <span class="metric-label">Filtered Credits (Inflow)</span>
+                </div>
+                <div class="metric-value income-color tabular-numbers" id="report-total-income">₹0.00</div>
+                <div class="metric-subtext" id="report-entry-count">0 items in ledger audit</div>
+            </div>
+
+            <div class="metric-folio-card">
+                <div class="metric-label-row">
+                    <span class="metric-label">Filtered Debits (Outflow)</span>
+                </div>
+                <div class="metric-value expense-color tabular-numbers" id="report-total-expense">₹0.00</div>
+                <div class="metric-subtext">Sum of expenditure in filtered scope</div>
+            </div>
+
+            <div class="metric-folio-card featured-balance">
+                <div class="metric-label-row">
+                    <span class="metric-label">Net Filtered Savings</span>
+                </div>
+                <div class="metric-value tabular-numbers" id="report-net-savings">₹0.00</div>
+                <div class="metric-subtext">Credit balance after expenditure</div>
+            </div>
+        </div>
+
+        <!-- 2-Column Split: Table on Left, Category breakdown visual on Right -->
+        <div class="dashboard-layout-grid">
+            <div class="content-card">
+                <div class="card-header-bar">
+                    <div class="card-title-group">
+                        <h3>Detailed Audit Ledger</h3>
+                        <p>Line-by-line itemization of matching transactions</p>
+                    </div>
+                </div>
+                <div class="card-body" style="padding: 0;">
+                    <div class="table-responsive">
+                        <table class="ledger-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category / Source</th>
+                                    <th>Description</th>
+                                    <th style="text-align: right;">Amount (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-transactions-tbody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="report-empty-state" class="empty-state" style="display: none;">
+                        <h4>No transactions in this filter</h4>
+                        <p>Adjust your dates or category filters above.</p>
+                    </div>
+                </div>
+            </div>
+
+            <aside>
+                <div class="content-card">
+                    <div class="card-header-bar">
+                        <div class="card-title-group">
+                            <h3>Category Allocation</h3>
+                            <p>Filtered expense distribution</p>
+                        </div>
+                    </div>
+                    <div class="card-body" id="report-category-chart">
+                        <!-- Rendered by reports.js -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Modal: Smart Spending Alerts -->
+    <div class="modal-backdrop" id="modal-alerts-ledger">
+        <div class="modal-dialog" style="max-width: 620px;">
+            <div class="modal-header">
+                <h3>Smart Spending Alerts</h3>
+                <button type="button" class="action-btn btn-close-alert-modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--ink-muted);">Automatic triggers on 80% threshold &amp; overspending</span>
+                    <button type="button" class="btn btn-sm btn-text" id="btn-mark-all-alerts-read">Mark All as Read</button>
+                </div>
+                <div id="alerts-modal-list" style="max-height: 380px; overflow-y: auto;"></div>
+                <div id="alerts-modal-empty" class="empty-state" style="display: none; padding: 2rem 1rem;">
+                    <h4>All Budgets in Safe Standing</h4>
+                    <p>No category has reached 80% of its budget limit.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-close-alert-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="ledger-footer">
+        <div class="footer-inner">
+            <div class="footer-creds">
+                <strong>Expense Tracker System</strong> — Dept. of CSE, LBSITW
+            </div>
+            <div class="footer-nav">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="transactions.html">Ledger</a>
+                <a href="budgets.html">Budgets</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/alerts.js"></script>
+</body>
+</html>
